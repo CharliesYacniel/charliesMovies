@@ -1,36 +1,33 @@
 <ion-content>
-  <!-- <ion-grid>
+  
+  <ion-grid fixed>
       <ion-row>
-           <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12"
-           *ngFor="let movie of movieArray" >
-              <ion-card class="welcome-card" >
-                  <img [src]="movie.poster_path" alt="" />
-                  <ion-card-header>
-                    <ion-card-subtitle>{{movie.original_title}}</ion-card-subtitle>
-                    <ion-card-title>{{movie.title}}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <p>{{movie.overview}}</p>
-                  </ion-card-content>
-                </ion-card>
+           <ion-col >
+            <h4>Recientes</h4>
            </ion-col>
       </ion-row>
-  </ion-grid> -->
+  </ion-grid>
 
-  <ion-slides pager="true" class="slide-full" [options]="optionSLides">
-      <ion-slide *ngFor="let movie of movieArray" >
-          <ion-card class="welcome-card" >
-              <img [src]="movie.poster_path | imagen" alt="" />
-              <ion-card-header>
-                <ion-card-subtitle>{{movie.original_title}}</ion-card-subtitle>
-                <ion-card-title>{{movie.title}}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{movie.overview}}</p>
-              </ion-card-content>
-            </ion-card>
-      </ion-slide>
+  <app-slideshow-backdrop [peliculas]="movieArray"></app-slideshow-backdrop>
+  
+  <ion-grid fixed>
+    <ion-row>
+         <ion-col >
+          <h4>Cartelera</h4>
+         </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-slideshow-poster [movieFeatures]="movieArray"></app-slideshow-poster>
 
-    </ion-slides>
+  <ion-grid fixed>
+    <ion-row>
+         <ion-col >
+          <h4>Populares</h4>
+         </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-slideshow-pares [peliculas] = "moviePopular"
+                        (cargarMas)="cargarMas()"
+                        ></app-slideshow-pares>
 
 </ion-content>

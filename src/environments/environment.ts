@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   apiKey: '160db8da4b62ffcf685f750fc01a104f',
-  pahtImage: 'https://image.tmdb.org/t/p/w500'
+  pathImage: 'https://image.tmdb.org/t/p',
+  pathImageNotFound: './assets/no-image-banner.jpg',
+  url: 'https://api.themoviedb.org/3',
+  language: 'es',
 };
 
 /*

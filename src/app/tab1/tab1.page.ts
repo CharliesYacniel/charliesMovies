@@ -8,19 +8,33 @@ import {  Pelicula } from '../interfaces/interface';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
-  movieArray:Pelicula [] = [];
-  
-  optionSLides = {
-    slidesPerView: 1.1,
-    freeMode: true
-  };
+  movieArray: Pelicula [] = [];
+  moviePopular: Pelicula [] = [];
 
   constructor(private moviesService: MoviesService ) {}
+  
   ngOnInit() {
     this.moviesService.getMovieFeture()
       .subscribe((dataMovies) => {
         console.log(dataMovies);
         this.movieArray = dataMovies.results;
       });
+    //
+    
+    this.getPopularesLocalesMetod();
+
+  }
+
+  cargarMas() {
+    this.getPopularesLocalesMetod();
+  }
+
+  getPopularesLocalesMetod() {
+    this.moviesService.getPopular()
+    .subscribe((popular) => {
+      console.log('Popular: ', popular.results);
+      this.moviePopular = [... this.moviePopular, ...popular.results];
+      // this.moviePopular.push(...popular.results);
+    });
   }
 }
