@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from 'src/app/interfaces/interface';
+import { ModalController } from '@ionic/angular';
+import { DetailsComponent } from '../details/details.component';
 
 @Component({
   selector: 'app-slideshow-pares',
@@ -15,7 +17,7 @@ export class SlideshowParesComponent implements OnInit {
     freeMode: true,
     spaceBetween: -10,
   };
-  constructor() { }
+  constructor(private modalController:ModalController) { }
 
   ngOnInit() {}
   
@@ -23,5 +25,15 @@ export class SlideshowParesComponent implements OnInit {
     console.log('cargar + movies');
     this.cargarMas.emit();
   }
+  async moviePairDetails(id: string) {
+    const modal = await this.modalController.create({
+                 component: DetailsComponent,
+                 componentProps: {id}
+               });
+    await modal.present();
+
+    // const {data} = await modal.onDidDismiss();
+    // console.log('Retorno del modal PARES', data || 'No retorno parametros');
+ }
 
 }
