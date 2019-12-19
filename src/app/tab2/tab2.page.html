@@ -11,26 +11,28 @@
 
   <ion-toolbar>
     <!-- <ion-title>Buscar</ion-title> -->
-    <ion-searchbar 
-    placeholder="Buscar Pelicula"
-     inputmode="email" 
-     type="text" 
-     #search
-     [value]="textoBuscar"
-     animated
-    (ionChange)="onSearchChange($event)" 
-    [debounce]="250"></ion-searchbar>
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="12" text-center>
-          <ion-spinner name="circular"></ion-spinner>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+      <ion-searchbar 
+          placeholder="Buscar Pelicula"
+          inputmode="email" 
+          type="text" 
+          #search
+          [value]="textoBuscar"
+          animated
+          (ionChange)="onSearchChange($event)" 
+          [debounce]="250"></ion-searchbar>
+
+      <ion-grid fixed *ngIf="buscando">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <ion-spinner name="circular"></ion-spinner>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
   </ion-toolbar>
 <ion-content>
 
-  <ion-list>
+  <ion-list *ngIf="peliculas.length === 0">
     <ion-list-header>
       <ion-label>Sugerencias</ion-label>
     </ion-list-header>
@@ -38,4 +40,26 @@
       <ion-label color="primary" (click)="textoBuscar=item"> {{item}}</ion-label>
     </ion-item>
   </ion-list>
+
+
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6" *ngFor="let pelicula of peliculas">
+      
+      <ion-card (click)="detalleMovie(pelicula.id)">
+        <!-- <img *ngIf="!pelicula.poster_path" src="/assets/no-avatar.jpg"> -->
+        <img *ngIf="pelicula.poster_path" [src]="pelicula.poster_path | imagen">
+        <ion-card-header>
+            <ion-card-subtitle>{{ pelicula.release_date }}</ion-card-subtitle>
+            <ion-card-title>{{pelicula.title}}</ion-card-title>
+        </ion-card-header>
+          <!-- <ion-content>
+              <h4>{{pelicula.title}}</h4>
+          </ion-content> -->
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
 </ion-content>

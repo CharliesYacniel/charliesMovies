@@ -24,6 +24,10 @@ export class MoviesService {
     return this.executeQuery<RespuestaMDB>(query);
   }
 
+  buscarPelicula( texto: string ) {
+      return this.executeQuery<RespuestaMDB>(`${environment.url}/search/movie?query=${texto}`);
+  }
+
   getMovieFeture() {
     const hoy = new Date();
     let mesString ;
