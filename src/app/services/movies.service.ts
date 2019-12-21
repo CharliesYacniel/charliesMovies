@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RespuestaMDB, PeliculaDetalle, RespuestaCredits } from '../interfaces/interface';
+import { RespuestaMDB, PeliculaDetalle, RespuestaCredits, Genre } from '../interfaces/interface';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class MoviesService {
    // tslint:disable-next-line:max-line-length
    url = `&api_key=${environment.apiKey}&language=${environment.language}&include_image_language=${environment.language}`;
   popularPage = 0;
+  generos :Genre[] = [];
   constructor(private httpClient:HttpClient) { }
   
   
@@ -57,5 +58,18 @@ export class MoviesService {
   }
   getMovieCredits( movie_id : string) {
     return this.executeQuery<RespuestaCredits>(`${environment.url}/movie/${movie_id}/credits?a=1`);
+  }
+
+
+  cargarGeneros():Promise<Genre[]> {
+
+    return new Promise(resolve => {
+      this.executeQuery<PeliculaDetalle>(`${environment.url}/genre/movie/list?a=1`)
+          .subscribe(resp => {
+            this.generos = resp['genres'];
+            console.log('generos', this.generos);
+            resolve( this.generos);
+          });
+    });
   }
 }
