@@ -30,27 +30,27 @@ export class MoviesService {
   }
 
   getMovieFeture() {
-    const hoy = new Date();
-    let mesString ;
-    const mes = hoy.getMonth() + 1 ;
-    
-    let diaString;
-    const ultimodia = hoy.getDate();
+      const hoy = new Date();
+      let mesString ;
+      const mes = hoy.getMonth() + 1 ;
+      let diaString;
+      const ultimodia = hoy.getDate();
 
-    if ( mes < 10) {
-      mesString = '0' + mes;
-    } else {
-      mesString = mes;
-    }
+      if ( mes < 10) {
+        mesString = '0' + mes;
+      } else {
+        mesString = mes;
+      }
 
-    if ( ultimodia < 10) {
-      diaString = '0' + ultimodia;
-    } else {
-      diaString = ultimodia;
-    }
-    const fechaInicio = `${hoy.getFullYear()}-${mesString - 1}-01`;
-    const fechaFin    = `${hoy.getFullYear()}-${mesString}-${diaString}`;
-   return this.executeQuery<RespuestaMDB>(`${environment.url}/discover/movie?primary_release_date.gte=${fechaInicio}&primary_release_date.lte=${fechaFin}`);
+      if ( ultimodia < 10) {
+        diaString = '0' + ultimodia;
+      } else {
+        diaString = ultimodia;
+      }
+      const fechaInicio = `${hoy.getFullYear()}-${mesString - 1}-01`;
+      const fechaFin    = `${hoy.getFullYear()}-${mesString}-${diaString}`;
+      let cosulta = `${environment.url}/discover/movie?primary_release_date.gte=${fechaInicio}&primary_release_date.lte=${fechaFin}`;
+      return this.executeQuery<RespuestaMDB>( cosulta);
   }
 
   getMovieDetails( movie_id : string) {
@@ -61,13 +61,13 @@ export class MoviesService {
   }
 
 
-  cargarGeneros():Promise<Genre[]> {
+  cargarGeneros(): Promise<Genre[]> {
 
     return new Promise(resolve => {
       this.executeQuery<PeliculaDetalle>(`${environment.url}/genre/movie/list?a=1`)
           .subscribe(resp => {
             this.generos = resp['genres'];
-            console.log('generos', this.generos);
+            // console.log('generos', this.generos);
             resolve( this.generos);
           });
     });

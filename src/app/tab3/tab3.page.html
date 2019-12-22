@@ -8,16 +8,15 @@
         </ion-row>
     </ion-grid>
 
-    <div *ngFor="let favorito of favoritoPorGenero">
-      <ion-grid *ngIf="favorito.pelis.length > 0 " >
+    <div *ngFor="let pelicula of favoritoPorGenero">
+      <ion-grid *ngIf="pelicula.pelis.length > 0" >
         <ion-row>
           <ion-col size="6">
-            <h4>{{favorito.genero}}</h4>
+            <h4>{{pelicula.genero}}</h4>
           </ion-col>
         </ion-row>
-        <app-slideshow-poster [movieFeatures]="favorito.pelis" ></app-slideshow-poster>
+        <app-slideshow-poster [movieFeatures]="pelicula.pelis" ></app-slideshow-poster>
       </ion-grid>
-
-</div>
+    </div>
 
 </ion-content>
